@@ -1,0 +1,48 @@
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.resultStatus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100vh;
+  font-family: Mulish;
+}
+
+.resultsHeadline {
+  margin: 0 0 10px;
+}
+
+.buttonsWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 1rem;
+}
+
+.buttons {
+  font-family: Mulish;
+
+  border: none;
+  color: #fff;
+  background-color: #DB0008;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+}
+
+.buttons:hover {
+  box-shadow: inset 0 0 100px #0000004d;
+}
+
+.buttons:active {
+  box-shadow: inset 0 0 100px #ff00008f;
+}

@@ -1,0 +1,68 @@
+.aboutus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.aboutus_title {
+    font-family: 'Mulish';
+    font-size: 48;
+    font-weight: 700;
+}
+
+.aboutus_center {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+.aboutus_history {
+    font-family: 'Mulish';
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    padding-top: 300px;
+    padding-bottom: 300px;
+    padding-left: 100px;
+    padding-right: 100px;
+    border-radius: 20px;
+    color: #fff;
+    background-image: url("../../../public/img/car-background.png");
+    background-size: cover;
+    background-position: center;
+    /* Added this line to center the background image */
+}
+
+@media (max-width: 1400px) {
+    .aboutus_title {
+        margin: 0;
+    }
+
+    .aboutus_history {
+        color: #000;
+        max-width: 1200px;
+        margin: 0;
+        background-image: none;
+        padding-top: 200px;
+        padding-bottom: 200px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .aboutus_history {
+        padding: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .aboutus_history {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 700px) {
+    .aboutus_history {
+        font-size: 20px;
+    }
+}
