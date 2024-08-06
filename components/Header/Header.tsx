@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 import styles from "./header.module.css";
 
 const Header = () => {
@@ -10,7 +10,7 @@ const Header = () => {
           <Link href="/">
             <Image
               className={styles.header_image}
-              src="./../../../public/img/Auschlogo.png"
+              src="/img/Auschlogo.png" // Исправлено
               alt="ltl"
               width={80}
               height={100}
@@ -24,29 +24,29 @@ const Header = () => {
         <div className={styles.header_navigation}>
           <ul className={styles.header_menu}>
             <li className={styles.header_menu_links}>
-              <a className={styles.header_menu_link} href="#homepage">
+              <Link className={styles.header_menu_link} href="#homepage">
                 Главная
-              </a>
+              </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <a className={styles.header_menu_link} href="#aboutus">
+              <Link className={styles.header_menu_link} href="#aboutus">
                 О нас
-              </a>
+              </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <a className={styles.header_menu_link} href="#conditions">
+              <Link className={styles.header_menu_link} href="#conditions">
                 Условия обучения
-              </a>
+              </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <a className={styles.header_menu_link} href="#footer">
+              <Link className={styles.header_menu_link} href="#footer">
                 Контакты
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
         <div className={styles.header_test}>
-          <Link className={styles.test_start} href={"/choice"}>
+          <Link className={styles.test_start} href="../../app/ChoicePage/ChoicePage.tsx">
             Пройти тестирование
           </Link>
         </div>

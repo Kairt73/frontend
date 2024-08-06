@@ -1,5 +1,6 @@
 import styles from './footer.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
@@ -53,9 +54,9 @@ const Footer: React.FC = () => {
           </ul>
         </div>
         <div className={styles.header_title}>
-          <a href="#header">
+          <Link href="#header">
             <Image src="/img/Auschlogo.png" alt="ltl" width={80} height={100} />
-          </a>
+          </Link>
           <div className={styles.autschool_logo}>
             <h4 className={styles.autschool}>Автошкола</h4>
             <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>
@@ -68,3 +69,4 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
+

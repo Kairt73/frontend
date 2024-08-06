@@ -1,7 +1,7 @@
+import "./globals.css";
 import { Mulish } from "next/font/google";
-import "../styles/globals.css";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Foooter";
+import HomePage from "./HomePage/HomePage";
+import ChoicePage from "./ChoicePage/ChoicePage";
 
 const mulish = Mulish({ subsets: ["latin", "cyrillic"] });
 
@@ -13,11 +13,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={mulish.className}>
-        <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );
 }
-
