@@ -1,8 +1,9 @@
+// components/Header/Header.tsx
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from "./header.module.css";
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <>
       <div id="header" className={styles.header}>
@@ -10,7 +11,7 @@ const Header = () => {
           <Link href="/">
             <Image
               className={styles.header_image}
-              src="/img/Auschlogo.png" // Исправлено
+              src="/img/Auschlogo.png"
               alt="ltl"
               width={80}
               height={100}
@@ -24,29 +25,29 @@ const Header = () => {
         <div className={styles.header_navigation}>
           <ul className={styles.header_menu}>
             <li className={styles.header_menu_links}>
-              <Link className={styles.header_menu_link} href="#homepage">
+              <Link href="#homepage" className={styles.header_menu_link}>
                 Главная
               </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <Link className={styles.header_menu_link} href="#aboutus">
+              <Link href="#aboutus" className={styles.header_menu_link}>
                 О нас
               </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <Link className={styles.header_menu_link} href="#conditions">
+              <Link href="#conditions" className={styles.header_menu_link}>
                 Условия обучения
               </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <Link className={styles.header_menu_link} href="#footer">
+              <Link href="#footer" className={styles.header_menu_link}>
                 Контакты
               </Link>
             </li>
           </ul>
         </div>
         <div className={styles.header_test}>
-          <Link className={styles.test_start} href="../../app/ChoicePage/ChoicePage.tsx">
+          <Link href="/choice" className={styles.test_start}>
             Пройти тестирование
           </Link>
         </div>

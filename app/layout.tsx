@@ -1,7 +1,6 @@
-import "./globals.css";
 import { Mulish } from "next/font/google";
-import HomePage from "./HomePage/HomePage";
-import ChoicePage from "./ChoicePage/ChoicePage";
+import "./globals.css"; // Путь к вашему глобальному CSS
+import HomePage from "./pages/HomePage/HomePage";
 
 const mulish = Mulish({ subsets: ["latin", "cyrillic"] });
 
@@ -18,3 +17,4 @@ export default function RootLayout({
     </html>
   );
 }
+

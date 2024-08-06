@@ -1,7 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import HomePage from "./HomePage/HomePage"; 
-import ChoicePage from "./ChoicePage/ChoicePage";
+import HomePage from "../app/pages/HomePage/HomePage"; 
 
 export default function Home() {
   return (
