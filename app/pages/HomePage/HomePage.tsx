@@ -1,9 +1,9 @@
-import AboutUs from "../../../components/AboutUs/AboutUs";
-import Banner from "../../../components/Banner/Banner";
-import Conditions from "../../../components/ConditionsOfEducation/Conditions";
-import Foooter from "../../../components/Footer/Foooter";
 import Header from "../../../components/Header/Header";
+import Banner from "../../../components/Banner/Banner";
+import AboutUs from "../../../components/AboutUs/AboutUs";
 import Reasonschoose from "../../../components/ReasonsToChoose/Reasonschoose";
+import Conditions from "../../../components/ConditionsOfEducation/Conditions";
+import Footer from "../../../components/Footer/Foooter";
 
 const HomePage = () => {
   return (
@@ -13,7 +13,7 @@ const HomePage = () => {
       <AboutUs />
       <Reasonschoose />
       <Conditions />
-      <Foooter />
+      <Footer />
     </>
   );
 };

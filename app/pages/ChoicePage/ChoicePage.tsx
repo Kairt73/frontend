@@ -1,12 +1,11 @@
-import ChoiceBtns from "../../components/ChoiceBtns/ChoiceBtns"
-
+import ChoiceBtns from "../../../components/ChoiceBtns/ChoiceBtns";
 
 const ChoicePage = () => {
-    return (
-        <div>
-            <ChoiceBtns />
-        </div>
-    )
-}
+  return (
+    <div>
+      <ChoiceBtns />
+    </div>
+  );
+};
 
-export default ChoicePage
+export default ChoicePage;
