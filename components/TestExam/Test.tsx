@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation'; // Use `next/navigation` for Next.js 13+
 import Image from 'next/image';
 import styles from './test.module.css';
 
@@ -34,6 +36,8 @@ const Test: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
+    if (!router) return; // Ensure router is available
+
     const timer = setInterval(() => {
       setTimeLeft(prevTime => {
         if (prevTime <= 1) {
@@ -117,6 +121,7 @@ const Test: React.FC = () => {
                 type="radio"
                 id={`rb${currentQuestion}_${index + 1}`}
                 name={`question_number${currentQuestion}`}
+                className={styles.customRadio}
                 onChange={() => setSelectedAnswer(prev => {
                   const updated = [...prev];
                   updated[currentQuestion] = index + 1;
@@ -143,10 +148,7 @@ const Test: React.FC = () => {
           {questions.map((_, index) => (
             <button
               key={index}
-              className={`
-                ${styles.nav_btn} 
-                ${submitted[index] ? (selectedAnswer[index] === questions[index].true_answer ? styles.true_answer : styles.wrongAnswer) : ''}
-              `}
+              className={`${styles.nav_btn} ${submitted[index] ? (selectedAnswer[index] === questions[index].true_answer ? styles.true_answer : styles.wrongAnswer) : ''}`}
               onClick={() => handleQuestionSelect(index)}
             >
               {index + 1}

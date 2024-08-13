@@ -76,12 +76,12 @@
 }
 
 /* Общие стили для radio-кнопок и их label */
-input[type="radio"] {
+.customRadio {
     position: absolute;
     left: -9999px;
 }
 
-input[type="radio"]+label {
+.customRadio + label {
     display: inline-block;
     position: relative;
     padding-left: 28px;
@@ -91,7 +91,7 @@ input[type="radio"]+label {
     /* Prevents text selection */
 }
 
-input[type="radio"]+label:before {
+.customRadio + label:before {
     content: "";
     position: absolute;
     left: 0px;
@@ -103,7 +103,7 @@ input[type="radio"]+label:before {
     border-radius: 100%;
 }
 
-input[type="radio"]:checked+label:before {
+.customRadio:checked + label:before {
     background-color: #ffffff;
     border: 1px solid #033303;
     /* Зеленый цвет для правильного ответа */
@@ -121,7 +121,7 @@ input[type="radio"]:checked+label:before {
 }
 
 /* Стили для всплывающего кружка */
-input[type="radio"]+label:after {
+.customRadio + label:after {
     content: "";
     position: absolute;
     -webkit-transition: all 0.2s ease;
@@ -130,7 +130,7 @@ input[type="radio"]+label:after {
     transition: all 0.2s ease;
 }
 
-input[type="radio"]+label:after {
+.customRadio + label:after {
     left: 5px;
     top: 5px;
     width: 10px;
@@ -139,11 +139,11 @@ input[type="radio"]+label:after {
     background-color: #032303;
 }
 
-input[type="radio"]:not(:checked)+label:after {
+.customRadio:not(:checked) + label:after {
     opacity: 0;
 }
 
-input[type="radio"]:checked+label:after {
+.customRadio:checked + label:after {
     opacity: 1;
 }
 

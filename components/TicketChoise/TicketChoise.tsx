@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Ticket } from '../../app/TicketsPage/TicketPage';
+import { Ticket } from '../../app/TicketsPage/page';
 import styles from './ticketchoise.module.css';
 
 interface TicketChoiseProps {

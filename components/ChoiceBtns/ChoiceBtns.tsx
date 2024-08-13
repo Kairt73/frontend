@@ -43,7 +43,7 @@ const ChoiceBtns: React.FC = () => {
       <div className={styles.choise_buttons}>
         <h1 className={styles.btns_text}>Онлайн тест по билетам ПДД</h1>
         <div className={styles.btns}>
-          <Link href="/tickets" className={styles.ticket_order}>
+          <Link href={"/TicketPage"} className={styles.ticket_order}>
             По номерам биллетов
           </Link>
           <button className={styles.random}>В случайном порядке</button>

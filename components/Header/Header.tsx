@@ -45,7 +45,7 @@ const Header: React.FC = () => {
         </ul>
       </div>
       <div className={styles.header_test}>
-        <Link href="/choice">
+        <Link href={"/ChoicePage"}>
           <button className={styles.test_start}>
             Пройти тестирование
           </button>

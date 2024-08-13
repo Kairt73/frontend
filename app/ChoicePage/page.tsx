@@ -1,4 +1,4 @@
-import ChoiceBtns from "../../../components/ChoiceBtns/ChoiceBtns";
+import ChoiceBtns from "../../components/ChoiceBtns/ChoiceBtns";
 
 const ChoicePage = () => {
   return (

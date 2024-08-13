@@ -1,6 +1,6 @@
 import { Mulish } from "next/font/google";
 import "./globals.css"; 
-import HomePage from "./pages/HomePage/HomePage";
+import { Metadata } from 'next';
 
 const mulish = Mulish({ subsets: ["latin", "cyrillic"] });
 
@@ -11,8 +11,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <link rel="image/svg" href="/Car.svg" />
       <body className={mulish.className}>
-        <HomePage />
         {children}
       </body>
     </html>
