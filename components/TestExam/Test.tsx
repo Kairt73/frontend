@@ -100,7 +100,6 @@ const Test: React.FC = () => {
   return (
     <div className={styles.test}>
       <div className={styles.test_main}>
-        <div className={styles.test_title}>{questions[currentQuestion].question_content}</div>
         <div className={styles.test_image}>
           <Image
             src={questions[currentQuestion].question_img}
@@ -109,6 +108,8 @@ const Test: React.FC = () => {
             height={400}
           />
         </div>
+        {/* Вставляем блок сюда */}
+        <div className={styles.test_title}>{questions[currentQuestion].question_content}</div>
         <h1 className={styles.test_question}>{questions[currentQuestion].question_number}</h1>
         <div className={styles.timer}>Оставшееся время: {formatTime(timeLeft)}</div>
       </div>

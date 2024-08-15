@@ -1,3 +1,16 @@
+.test_title, .timer, .checkbox_title{
+    font-family: 'Mulish',  sans-serif !important;
+}
+
+.test_question {
+    font-family: 'Mulish_medium', sans-serif; /* Добавьте нужный шрифт */
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    max-width: 700px;
+    user-select: none;
+}
+
 .test_main {
     display: flex;
     margin-top: 50px;

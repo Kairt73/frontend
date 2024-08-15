@@ -28,17 +28,17 @@ const Header: React.FC = () => {
             </Link>
           </li>
           <li className={styles.header_menu_links}>
-            <Link href="#aboutus" className={styles.header_menu_link}>
+            <Link href={"/aboutus"} className={styles.header_menu_link}>
               О нас
             </Link>
           </li>
           <li className={styles.header_menu_links}>
-            <Link href="#conditions" className={styles.header_menu_link}>
+            <Link href={"/conditions"} className={styles.header_menu_link}>
               Условия обучения
             </Link>
           </li>
           <li className={styles.header_menu_links}>
-            <Link href="#footer" className={styles.header_menu_link}>
+            <Link href={"#footer"} className={styles.header_menu_link}>
               Контакты
             </Link>
           </li>

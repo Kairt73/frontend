@@ -13,7 +13,6 @@ const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets }) => {
       <div id="header" className={styles.header}>
         <div className={styles.header_title}>
           <Link href="/" passHref>
-            <a>
               <Image
                 className={styles.header_image}
                 src="/img/Auschlogo.png"
@@ -21,7 +20,6 @@ const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets }) => {
                 width={80}
                 height={100}
               />
-            </a>
           </Link>
           <div className={styles.autschool_logo}>
             <h4 className={styles.autschool}>Автошкола</h4>
@@ -31,23 +29,23 @@ const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets }) => {
         <div className={styles.header_navigation}>
           <ul className={styles.header_menu}>
             <li className={styles.header_menu_links}>
-              <Link href="/" passHref>
-                <a className={styles.header_menu_link}>Главная</a>
+              <Link href="/" className={styles.header_menu_link}>
+                Главная
               </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <Link href="/" passHref>
-                <a className={styles.header_menu_link}>О нас</a>
+              <Link href="/" className={styles.header_menu_link}>
+                О нас
               </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <Link href="/" passHref>
-                <a className={styles.header_menu_link}>Условия обучения</a>
+              <Link href="/" className={styles.header_menu_link}>
+                Условия обучения
               </Link>
             </li>
             <li className={styles.header_menu_links}>
-              <Link href="/" passHref>
-                <a className={styles.header_menu_link}>Контакты</a>
+              <Link href="/" className={styles.header_menu_link}>
+                Контакты
               </Link>
             </li>
           </ul>

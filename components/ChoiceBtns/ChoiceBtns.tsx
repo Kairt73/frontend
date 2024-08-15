@@ -1,11 +1,12 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './choisebtns.module.css';
 
 const ChoiceBtns: React.FC = () => {
   return (
-    <div className={styles.choice}>
-      <div id='header' className={styles.header}>
+    <div className={`${styles.choice} ${styles.mulish}`}>
+      <div id='header' className={`${styles.header} ${styles.mulish}`}>
         <div className={styles.header_title}>
           <Link href="/">
             <Image className={styles.header_image} src="/img/Auschlogo.png" alt="ltl" width={80} height={100} />
@@ -54,4 +55,3 @@ const ChoiceBtns: React.FC = () => {
 };
 
 export default ChoiceBtns;
-

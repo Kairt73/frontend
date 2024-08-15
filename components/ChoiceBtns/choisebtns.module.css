@@ -1,3 +1,7 @@
+.autschool, .autschool_name, .btns_text, .header_menu_links, .ticket_order {
+    font-family: 'Mulish', sans-serif !important;
+}
+
 .choise_buttons {
     display: flex;
     align-items: center;
