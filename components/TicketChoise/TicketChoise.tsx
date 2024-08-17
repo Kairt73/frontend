@@ -1,7 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Ticket } from '../../app/TicketsPage/page';
+import { Mulish } from 'next/font/google';
+import { Ticket } from '../../app/TicketPage/page';
 import styles from './ticketchoise.module.css';
+
+const mulish = Mulish({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
 interface TicketChoiseProps {
   tickets: Ticket[];
@@ -9,17 +12,17 @@ interface TicketChoiseProps {
 
 const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets }) => {
   return (
-    <div className={styles.choice_ticket}>
+    <div className={`${styles.choice_ticket} ${mulish.className}`}>
       <div id="header" className={styles.header}>
         <div className={styles.header_title}>
           <Link href="/" passHref>
-              <Image
-                className={styles.header_image}
-                src="/img/Auschlogo.png"
-                alt="ltl"
-                width={80}
-                height={100}
-              />
+            <Image
+              className={styles.header_image}
+              src="/img/Auschlogo.png"
+              alt="ltl"
+              width={80}
+              height={100}
+            />
           </Link>
           <div className={styles.autschool_logo}>
             <h4 className={styles.autschool}>Автошкола</h4>

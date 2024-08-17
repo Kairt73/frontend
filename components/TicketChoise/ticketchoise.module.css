@@ -16,30 +16,26 @@
     flex-direction: column;
     margin: 0;
     align-items: center;
-    font-family: 'Mulish';
 }
 
 .autschool {
     margin: 0;
     font-size: 24px;
-    font-family: 'Mulish_bold';
-    font-weight: 700px;
+    font-weight: 700;
 }
 
 .autschool_name {
     margin: 0;
-    font-family: 'Mulish_bold';
-    font-weight: 700px;
+    font-weight: 700;
     font-size: 30px;
 }
 
 .header_menu {
     list-style: none;
-    font-family: 'Mulish';
     display: inline-flex;
     gap: 40px;
 }
-
+  
 .header_menu_links {
     color: #3A3A3A;
     font-size: 16px;
@@ -63,7 +59,6 @@
 }
 
 .ticket_text {
-    font-family: 'Mulish_medium';
     font-size: 32px;
     font-weight: 700;
     color: #000;
@@ -92,8 +87,7 @@
     }
 }
 
-.ticket_btn {
-    font-family: 'Mulish_medium';
+.ticket_btn {   
     border: none;
     color: #fff;
     background-color: #DB0008;

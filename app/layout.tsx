@@ -10,11 +10,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link rel="image/svg" href="/Car.svg" />
+      <head>
+        <link rel="icon" href="/Car.svg" type="image/svg+xml" />
+      </head>
       <body className={mulish.className}>
         {children}
       </body>
     </html>
   );
 }
-

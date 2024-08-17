@@ -23,17 +23,17 @@ const Header: React.FC = () => {
       <div className={styles.header_navigation}>
         <ul className={styles.header_menu}>
           <li className={styles.header_menu_links}>
-            <Link href="#homepage" className={styles.header_menu_link}>
+            <Link href="/" className={styles.header_menu_link}>
               Главная
             </Link>
           </li>
           <li className={styles.header_menu_links}>
-            <Link href={"/aboutus"} className={styles.header_menu_link}>
+            <Link href={"#aboutus"} className={styles.header_menu_link}>
               О нас
             </Link>
           </li>
           <li className={styles.header_menu_links}>
-            <Link href={"/conditions"} className={styles.header_menu_link}>
+            <Link href={"#conditions"} className={styles.header_menu_link}>
               Условия обучения
             </Link>
           </li>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
-    <div id='footer' className={styles.footer}>
+    <div id={'footer'} className={styles.footer}>
       <div className={styles.footer_info}>
         <div className={styles.phone_numbers}>
           <h4 className={styles.name_number}>Номера для связи:</h4>
