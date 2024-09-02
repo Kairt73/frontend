@@ -1,48 +1,43 @@
-"use client";
+'use client';
 
+import { useSearchParams } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Use `next/navigation` for Next.js 13+
 import Image from 'next/image';
 import styles from './test.module.css';
 
-const questions: {
+interface Question {
   id: number;
   question_number: string;
   question_content: string;
   answer_list: string[];
   true_answer: number;
   question_img: string;
-}[] = [
-  {
-    id: 1,
-    question_number: "Вопрос №1, Билет №1",
-    question_img: "/img/Ticket-1/question-1.png",
-    question_content: "В каком случае водитель совершит вынужденую остановку?",
-    answer_list: [
-      "1.Остановившись непосредственно перед пешеходным переходом, чтобы уступить дорогу пешеходу",
-      "2.Остановившись на проезжей части из-за технической неисправности транспортного средства",
-      "3.В обоих перечисленных случаях"
-    ],
-    true_answer: 2,
-  },
-];
+}
 
 const Test: React.FC = () => {
-  const [selectedAnswer, setSelectedAnswer] = useState<(number | null)[]>(Array(questions.length).fill(null));
-  const [submitted, setSubmitted] = useState<boolean[]>(Array(questions.length).fill(false));
+  const searchParams = useSearchParams();
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [selectedAnswer, setSelectedAnswer] = useState<(number | null)[]>([]);
+  const [submitted, setSubmitted] = useState<boolean[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 минут в секундах
-  const router = useRouter();
 
   useEffect(() => {
-    if (!router) return; // Ensure router is available
+    const questionsData = searchParams.get('questions');
+    if (questionsData) {
+      const parsedQuestions = JSON.parse(questionsData);
+      setQuestions(parsedQuestions);
+      setSelectedAnswer(new Array(parsedQuestions.length).fill(null));
+      setSubmitted(new Array(parsedQuestions.length).fill(false));
+    }
+  }, [searchParams]);
 
+  useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(prevTime => {
+      setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
-          router.push(`/results?correctAnswers=${correctAnswers}`);
           return 0;
         }
         return prevTime - 1;
@@ -50,7 +45,7 @@ const Test: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [correctAnswers, router]);
+  }, []);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -72,11 +67,7 @@ const Test: React.FC = () => {
       setSubmitted(updatedSubmitted);
 
       if (selectedAnswer[currentQuestion] === questions[currentQuestion].true_answer) {
-        setCorrectAnswers(prev => prev + 1);
-      }
-
-      if (currentQuestion === questions.length - 1) {
-        router.push(`/results?correctAnswers=${correctAnswers + (selectedAnswer[currentQuestion] === questions[currentQuestion].true_answer ? 1 : 0)}`);
+        setCorrectAnswers((prev) => prev + 1);
       }
     }
   };
@@ -101,61 +92,75 @@ const Test: React.FC = () => {
     <div className={styles.test}>
       <div className={styles.test_main}>
         <div className={styles.test_image}>
-          <Image
-            src={questions[currentQuestion].question_img}
-            alt="SDS"
-            width={800}
-            height={400}
-          />
+          {questions[currentQuestion] && (
+            <Image
+              src={questions[currentQuestion].question_img}
+              alt="Question"
+              width={800}
+              height={400}
+            />
+          )}
         </div>
-        {/* Вставляем блок сюда */}
-        <div className={styles.test_title}>{questions[currentQuestion].question_content}</div>
-        <h1 className={styles.test_question}>{questions[currentQuestion].question_number}</h1>
+        <div className={styles.test_title}>{questions[currentQuestion]?.question_content}</div>
+        <h1 className={styles.test_question}>{questions[currentQuestion]?.question_number}</h1>
         <div className={styles.timer}>Оставшееся время: {formatTime(timeLeft)}</div>
       </div>
       <div className={styles.test_answer}>
-        <ul className={styles.checkboxes}>
-          <h1 className={styles.checkbox_title}>Выберите вариант ответа:</h1>
-          {questions[currentQuestion].answer_list.map((option, index) => (
-            <li key={index} className={`${styles.checkbox} ${selectedAnswer[currentQuestion] === index + 1 ? checkAnswer(currentQuestion, index + 1) : ''}`}>
-              <input
-                type="radio"
-                id={`rb${currentQuestion}_${index + 1}`}
-                name={`question_number${currentQuestion}`}
-                className={styles.customRadio}
-                onChange={() => setSelectedAnswer(prev => {
-                  const updated = [...prev];
-                  updated[currentQuestion] = index + 1;
-                  return updated;
-                })}
-                disabled={submitted[currentQuestion]}
-                checked={selectedAnswer[currentQuestion] === index + 1}
-              />
-              <label htmlFor={`rb${currentQuestion}_${index + 1}`}>{option}</label>
-            </li>
-          ))}
-          {submitted[currentQuestion] && (
-            <li className={`${styles.checkbox} ${styles.true_answer}`}>
-              {questions[currentQuestion].answer_list[questions[currentQuestion].true_answer - 1]}
-            </li>
-          )}
-        </ul>
-        <div className={styles.test_btns}>
-          <button className={styles.test_btn} onClick={handlePrev} disabled={currentQuestion === 0}>Назад</button>
-          <button className={styles.test_btn} onClick={handleSubmit}>Ответить</button>
-          <button className={styles.test_btn} onClick={handleNext} disabled={currentQuestion === questions.length - 1}>Далее</button>
-        </div>
-        <div className={styles.navigation}>
-          {questions.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.nav_btn} ${submitted[index] ? (selectedAnswer[index] === questions[index].true_answer ? styles.true_answer : styles.wrongAnswer) : ''}`}
-              onClick={() => handleQuestionSelect(index)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+        {questions[currentQuestion]?.answer_list.map((answer, index) => (
+          <div
+            key={index}
+            className={`${styles.checkbox} ${checkAnswer(currentQuestion, index)}`}
+            onClick={() => {
+              if (!submitted[currentQuestion]) {
+                const updatedAnswers = [...selectedAnswer];
+                updatedAnswers[currentQuestion] = index;
+                setSelectedAnswer(updatedAnswers);
+              }
+            }}
+          >
+            {answer}
+          </div>
+        ))}
+      </div>
+      <div className={styles.test_btns}>
+        <button
+          className={styles.test_btn}
+          onClick={handlePrev}
+          disabled={currentQuestion === 0}
+        >
+          Предыдущий вопрос
+        </button>
+        <button
+          className={styles.test_btn}
+          onClick={handleSubmit}
+        >
+          {submitted[currentQuestion] ? 'Ответить' : 'Ответить'}
+        </button>
+        <button
+          className={styles.test_btn}
+          onClick={handleNext}
+          disabled={currentQuestion === questions.length - 1}
+        >
+          Следующий вопрос
+        </button>
+      </div>
+      <div className={styles.navigation}>
+        {questions.map((_, index) => (
+          <button
+            key={index}
+            className={`${styles.nav_btn} ${currentQuestion === index ? styles.active : ''}`}
+            onClick={() => handleQuestionSelect(index)}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+      <div className={styles.result}>
+        {timeLeft <= 0 && (
+          <div className={styles.result_message}>
+            Время вышло! Правильные ответы: {correctAnswers} из {questions.length}
+          </div>
+        )}
       </div>
     </div>
   );

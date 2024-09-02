@@ -8,9 +8,24 @@ const mulish = Mulish({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
 interface TicketChoiseProps {
   tickets: Ticket[];
+  onRandomTest: () => void;
 }
 
-const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets }) => {
+const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onRandomTest }) => {
+  const handleTicketClick = async (ticketId: number) => {
+    try {
+      const response = await fetch(`/api/question_list?ticket_id=${ticketId}`);
+      const data = await response.json();
+      if (data.success) {
+        console.log(data.question_list); // Обработка списка вопросов
+      } else {
+        console.error('Ошибка при получении вопросов');
+      }
+    } catch (error) {
+      console.error('Ошибка при запросе:', error);
+    }
+  };
+
   return (
     <div className={`${styles.choice_ticket} ${mulish.className}`}>
       <div id="header" className={styles.header}>
@@ -55,16 +70,23 @@ const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets }) => {
         </div>
       </div>
       <div className={styles.tickets_choise}>
-        <h1 className={styles.ticket_text}>Экзаменационые билеты</h1>
+        <h1 className={styles.ticket_text}>Экзаменационные билеты</h1>
         <div className={styles.tickets}>
           <div className={styles.ticket_list}>
             {tickets.map((ticket) => (
-              <button key={ticket.id} className={styles.ticket_btn}>
+              <button
+                key={ticket.id}
+                className={styles.ticket_btn}
+                onClick={() => handleTicketClick(ticket.id)}
+              >
                 {ticket.ticketName}
               </button>
             ))}
           </div>
         </div>
+        <button className={styles.random_test_btn} onClick={onRandomTest}>
+          Случайный тест
+        </button>
       </div>
     </div>
   );
