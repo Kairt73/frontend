@@ -1,14 +1,13 @@
-'use client'
+'use client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from './results.module.css';
 
-function useQuery() {
-  const router = useRouter();
-  return new URLSearchParams(router.query as any);
+interface ResultsProps {
+  correctAnswers: string; // Укажите тип для correctAnswers
 }
 
-const Results: React.FC = ({correctAnswers}) => {
+const Results: React.FC<ResultsProps> = ({ correctAnswers }) => {
   const correctAnswer = parseInt(correctAnswers, 10);
 
   let resultContent;
@@ -21,7 +20,7 @@ const Results: React.FC = ({correctAnswers}) => {
       resultContent = <p>Может вам стоит ещё попрактиковаться?</p>;
       break;
     case correctAnswer <= 17:
-      resultContent = <p>Не плохой результат, но может попробовать ещё раз?</p>;
+      resultContent = <p>Неплохой результат, но может попробовать ещё раз?</p>;
       break;
     case correctAnswer <= 20:
       resultContent = <p>Поздравляю, вы отлично сдали!</p>;
@@ -36,16 +35,16 @@ const Results: React.FC = ({correctAnswers}) => {
         <h1 className={styles.resultsHeadline}>Вы сдали {correctAnswer} из 20</h1>
         {resultContent}
         <div className={styles.buttonsWrap}>
-          <Link href={"/"} className={styles.buttons}>
+          <Link href="/" className={styles.buttons}>
             На главную
           </Link>
-          <Link href={"/TicketPage"} className={styles.buttons}>
+          <Link href="/TicketPage" className={styles.buttons}>
             Пересдать
           </Link>
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default Results;

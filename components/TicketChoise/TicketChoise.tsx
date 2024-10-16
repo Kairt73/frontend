@@ -1,31 +1,21 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mulish } from 'next/font/google';
-import { Ticket } from '../../app/TicketPage/page';
 import styles from './ticketchoise.module.css';
 
 const mulish = Mulish({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
+interface Ticket {
+  id: number;
+  ticketName: string;
+}
+
 interface TicketChoiseProps {
   tickets: Ticket[];
-  onRandomTest: () => void;
+  onRandomTest: (ticketId: number) => void; // Изменяем тип, чтобы принимать ticketId
 }
 
 const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onRandomTest }) => {
-  const handleTicketClick = async (ticketId: number) => {
-    try {
-      const response = await fetch(`/api/question_list?ticket_id=${ticketId}`);
-      const data = await response.json();
-      if (data.success) {
-        console.log(data.question_list); // Обработка списка вопросов
-      } else {
-        console.error('Ошибка при получении вопросов');
-      }
-    } catch (error) {
-      console.error('Ошибка при запросе:', error);
-    }
-  };
-
   return (
     <div className={`${styles.choice_ticket} ${mulish.className}`}>
       <div id="header" className={styles.header}>
@@ -77,16 +67,13 @@ const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onRandomTest }) =>
               <button
                 key={ticket.id}
                 className={styles.ticket_btn}
-                onClick={() => handleTicketClick(ticket.id)}
+                onClick={() => onRandomTest(ticket.id)} // Теперь передаем ticket.id
               >
                 {ticket.ticketName}
               </button>
             ))}
           </div>
         </div>
-        <button className={styles.random_test_btn} onClick={onRandomTest}>
-          Случайный тест
-        </button>
       </div>
     </div>
   );

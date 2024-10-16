@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import styles from './test.module.css';
 
@@ -38,6 +38,7 @@ const Test: React.FC = () => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
+          alert(`Время вышло! Правильные ответы: ${correctAnswers} из ${questions.length}`);
           return 0;
         }
         return prevTime - 1;
@@ -45,7 +46,7 @@ const Test: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [correctAnswers, questions.length]); // Добавлены зависимости
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -166,4 +167,11 @@ const Test: React.FC = () => {
   );
 };
 
-export default Test;
+// Обернём в Suspense для обработки useSearchParams
+const TestWrapper: React.FC = () => (
+  <Suspense fallback={<div>Загрузка...</div>}>
+    <Test />
+  </Suspense>
+);
+
+export default TestWrapper;

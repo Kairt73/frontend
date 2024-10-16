@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: Test
+      POSTGRES_PASSWORD: 11062007
+      POSTGRES_DB: bilety
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  nextjs-app:
+    build: .
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env  
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    command: sh -c "npx prisma migrate deploy && npm run dev"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - app-network  
+
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+    driver: bridge

@@ -44,7 +44,7 @@ const TicketPage = () => {
 
   return (
     <>
-      <TicketChoise tickets={tickets} onRandomTest={handleTicketClick} />
+      <TicketChoise tickets={tickets} onRandomTest={(ticketId) => { handleTicketClick(ticketId); return; }} />
     </>
   );
 };
