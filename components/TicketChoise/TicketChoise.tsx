@@ -1,3 +1,5 @@
+// TicketChoise.tsx
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mulish } from 'next/font/google';
@@ -12,71 +14,60 @@ interface Ticket {
 
 interface TicketChoiseProps {
   tickets: Ticket[];
-  onRandomTest: (ticketId: number) => void; // Изменяем тип, чтобы принимать ticketId
+  onSelectTicket: (ticketId: number) => void;
 }
 
-const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onRandomTest }) => {
-  return (
-    <div className={`${styles.choice_ticket} ${mulish.className}`}>
-      <div id="header" className={styles.header}>
-        <div className={styles.header_title}>
-          <Link href="/" passHref>
-            <Image
-              className={styles.header_image}
-              src="/img/Auschlogo.png"
-              alt="ltl"
-              width={80}
-              height={100}
-            />
-          </Link>
-          <div className={styles.autschool_logo}>
-            <h4 className={styles.autschool}>Автошкола</h4>
-            <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>
-          </div>
-        </div>
-        <div className={styles.header_navigation}>
-          <ul className={styles.header_menu}>
-            <li className={styles.header_menu_links}>
-              <Link href="/" className={styles.header_menu_link}>
-                Главная
-              </Link>
-            </li>
-            <li className={styles.header_menu_links}>
-              <Link href="/" className={styles.header_menu_link}>
-                О нас
-              </Link>
-            </li>
-            <li className={styles.header_menu_links}>
-              <Link href="/" className={styles.header_menu_link}>
-                Условия обучения
-              </Link>
-            </li>
-            <li className={styles.header_menu_links}>
-              <Link href="/" className={styles.header_menu_link}>
-                Контакты
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className={styles.tickets_choise}>
-        <h1 className={styles.ticket_text}>Экзаменационные билеты</h1>
-        <div className={styles.tickets}>
-          <div className={styles.ticket_list}>
-            {tickets.map((ticket) => (
-              <button
-                key={ticket.id}
-                className={styles.ticket_btn}
-                onClick={() => onRandomTest(ticket.id)} // Теперь передаем ticket.id
-              >
-                {ticket.ticketName}
-              </button>
-            ))}
-          </div>
-        </div>
+const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onSelectTicket }) => (
+  <div className={`${styles.choice_ticket} ${mulish.className}`}>
+    <Header />
+    <h1 className={styles.ticket_text}>Экзаменационные билеты</h1>
+    <div className={styles.ticket_list}>
+      {tickets.map((ticket) => (
+        <button
+          key={ticket.id}
+          className={styles.ticket_btn}
+          onClick={() => onSelectTicket(ticket.id)}
+        >
+          Билет № {ticket.id}
+        </button>
+      ))}
+    </div>
+  </div>
+);
+
+const Header: React.FC = () => (
+  <div id="header" className={styles.header}>
+    <div className={styles.header_title}>
+      <Link href="/" passHref>
+        <Image
+          className={styles.header_image}
+          src="/img/Auschlogo.png"
+          alt="ltl"
+          width={80}
+          height={100}
+        />
+      </Link>
+      <div className={styles.autschool_logo}>
+        <h4 className={styles.autschool}>Автошкола</h4>
+        <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>
       </div>
     </div>
-  );
-};
+    <Navigation />
+  </div>
+);
+
+const Navigation: React.FC = () => (
+  <div className={styles.header_navigation}>
+    <ul className={styles.header_menu}>
+      {['Главная', 'О нас', 'Условия обучения', 'Контакты'].map((item, index) => (
+        <li key={index} className={styles.header_menu_links}>
+          <Link href="/" className={styles.header_menu_link}>
+            {item}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 export default TicketChoise;

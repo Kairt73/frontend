@@ -1,52 +1,34 @@
-'use client'; // Указываем, что этот компонент должен работать на клиенте
-
-import { useRouter } from 'next/navigation'; // Используем next/navigation для маршрутизации
+// TicketPage.tsx
+'use client';
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
-import TicketChoise from "../../components/TicketChoise/TicketChoise";
+import TicketChoise, { Ticket } from '../../components/TicketChoise/TicketChoise';
 
-export interface Ticket {
-  id: number;
-  ticketName: string;
-}
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-const TicketPage = () => {
+const TicketPage: React.FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const router = useRouter();
 
   useEffect(() => {
-    // Генерация 80 билетов
-    const generateTickets = () => {
-      const ticketList: Ticket[] = [];
-      for (let i = 1; i <= 80; i++) {
-        ticketList.push({ id: i, ticketName: `Билет №${i}` });
+    const fetchTickets = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/api/active_ticket_list`);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+        const data = await response.json();
+        setTickets(data.ticket_list);
+      } catch (error) {
+        console.error("Failed to fetch tickets:", error);
       }
-      setTickets(ticketList);
     };
-
-    generateTickets(); // Запускаем генерацию билетов при монтировании компонента
-
+    fetchTickets();
   }, []);
 
-  const handleTicketClick = async (ticketId: number) => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/question_list?ticket_id=${ticketId}`);
-      const data = await response.json();
-      if (data.success) {
-        const questions = JSON.stringify(data.question_list);
-        // Формируем строку URL
-        const url = `/test?questions=${encodeURIComponent(questions)}`;
-        router.push(url); // Переход по строке URL
-      }
-    } catch (error) {
-      console.error("Ошибка при получении вопросов для билета:", error);
-    }
+  const handleTicketClick = (ticketId: number) => {
+    router.push(`/test?ticketId=${ticketId}`);
   };
 
-  return (
-    <>
-      <TicketChoise tickets={tickets} onRandomTest={(ticketId) => { handleTicketClick(ticketId); return; }} />
-    </>
-  );
+  return <TicketChoise tickets={tickets} onSelectTicket={handleTicketClick} />;
 };
 
 export default TicketPage;

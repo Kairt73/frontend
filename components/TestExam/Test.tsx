@@ -24,15 +24,18 @@ const Test: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 минут в секундах
 
   useEffect(() => {
-    const questionsData = searchParams.get('questions');
-    if (questionsData) {
-      const parsedQuestions = JSON.parse(questionsData);
-      setQuestions(parsedQuestions);
-      setSelectedAnswer(new Array(parsedQuestions.length).fill(null));
-      setSubmitted(new Array(parsedQuestions.length).fill(false));
-    }
-  }, [searchParams]);
+    const ticketId = searchParams.get('ticketId');
 
+    (async function() {
+      const response = await fetch(`http://localhost:8080/api/question_list?ticket_id=${ticketId}`);
+      const data = await response.json();
+     if(data.success) setQuestions(data.question_list);
+    }())
+    console.log(JSON.parse("[\"Перед знаком.\", \"Перед перекрестком у линии разметки.\", \"На перекрестке перед прерывистой линией разметки.\", \"В любом месте по усмотрению водителя.\"]"))
+      // setSelectedAnswer(new Array(parsedQuestions.length).fill(null));
+      // setSubmitted(new Array(parsedQuestions.length).fill(false));
+  }, [searchParams]);
+  console.log(questions)
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -167,7 +170,8 @@ const Test: React.FC = () => {
   );
 };
 
-// Обернём в Suspense для обработки useSearchParams
+
+  // Обернём в Suspense для обработки useSearchParams
 const TestWrapper: React.FC = () => (
   <Suspense fallback={<div>Загрузка...</div>}>
     <Test />
