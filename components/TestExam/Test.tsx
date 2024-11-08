@@ -21,21 +21,27 @@ const Test: React.FC = () => {
   const [submitted, setSubmitted] = useState<boolean[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 минут в секундах
+  const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 минут
 
   useEffect(() => {
     const ticketId = searchParams.get('ticketId');
 
-    (async function() {
-      const response = await fetch(`http://localhost:8080/api/question_list?ticket_id=${ticketId}`);
-      const data = await response.json();
-     if(data.success) setQuestions(data.question_list);
-    }())
-    console.log(JSON.parse("[\"Перед знаком.\", \"Перед перекрестком у линии разметки.\", \"На перекрестке перед прерывистой линией разметки.\", \"В любом месте по усмотрению водителя.\"]"))
-      // setSelectedAnswer(new Array(parsedQuestions.length).fill(null));
-      // setSubmitted(new Array(parsedQuestions.length).fill(false));
+    const fetchQuestions = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/question_list?ticket_id=${ticketId}`);
+        const data = await response.json();
+        if (data.success) {
+          setQuestions(data.question_list);
+          setSelectedAnswer(new Array(data.question_list.length).fill(null));
+          setSubmitted(new Array(data.question_list.length).fill(false));
+        }
+      } catch (error) {
+        console.error("Failed to fetch questions:", error);
+      }
+    };
+    fetchQuestions();
   }, [searchParams]);
-  console.log(questions)
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -49,7 +55,7 @@ const Test: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [correctAnswers, questions.length]); // Добавлены зависимости
+  }, [correctAnswers, questions.length]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -59,9 +65,11 @@ const Test: React.FC = () => {
 
   const checkAnswer = (questionIndex: number, answer: number): string => {
     if (!submitted[questionIndex]) return '';
-    if (answer === questions[questionIndex].true_answer) return styles.true_answer;
-    if (selectedAnswer[questionIndex] === answer) return styles.wrongAnswer;
-    return '';
+    return answer === questions[questionIndex].true_answer
+      ? styles.true_answer
+      : selectedAnswer[questionIndex] === answer
+      ? styles.wrongAnswer
+      : '';
   };
 
   const handleSubmit = () => {
@@ -88,15 +96,19 @@ const Test: React.FC = () => {
     }
   };
 
-  const handleQuestionSelect = (index: number) => {
-    setCurrentQuestion(index);
+  const handleAnswerClick = (index: number) => {
+    if (!submitted[currentQuestion]) {
+      const updatedAnswers = [...selectedAnswer];
+      updatedAnswers[currentQuestion] = index;
+      setSelectedAnswer(updatedAnswers);
+    }
   };
 
   return (
     <div className={styles.test}>
       <div className={styles.test_main}>
         <div className={styles.test_image}>
-          {questions[currentQuestion] && (
+          {questions[currentQuestion]?.question_img && (
             <Image
               src={questions[currentQuestion].question_img}
               alt="Question"
@@ -114,13 +126,7 @@ const Test: React.FC = () => {
           <div
             key={index}
             className={`${styles.checkbox} ${checkAnswer(currentQuestion, index)}`}
-            onClick={() => {
-              if (!submitted[currentQuestion]) {
-                const updatedAnswers = [...selectedAnswer];
-                updatedAnswers[currentQuestion] = index;
-                setSelectedAnswer(updatedAnswers);
-              }
-            }}
+            onClick={() => handleAnswerClick(index)}
           >
             {answer}
           </div>
@@ -138,7 +144,7 @@ const Test: React.FC = () => {
           className={styles.test_btn}
           onClick={handleSubmit}
         >
-          {submitted[currentQuestion] ? 'Ответить' : 'Ответить'}
+          Ответить
         </button>
         <button
           className={styles.test_btn}
@@ -153,7 +159,7 @@ const Test: React.FC = () => {
           <button
             key={index}
             className={`${styles.nav_btn} ${currentQuestion === index ? styles.active : ''}`}
-            onClick={() => handleQuestionSelect(index)}
+            onClick={() => setCurrentQuestion(index)}
           >
             {index + 1}
           </button>
@@ -170,8 +176,6 @@ const Test: React.FC = () => {
   );
 };
 
-
-  // Обернём в Suspense для обработки useSearchParams
 const TestWrapper: React.FC = () => (
   <Suspense fallback={<div>Загрузка...</div>}>
     <Test />

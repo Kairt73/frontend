@@ -1,7 +1,6 @@
-// TicketChoise.tsx
 'use client';
 import Link from 'next/link';
-import Image from 'next/image';
+import LogoLink from '../LogoLink/Logolink'; // Импортируем клиентский компонент
 import { Mulish } from 'next/font/google';
 import styles from './ticketchoise.module.css';
 
@@ -38,15 +37,7 @@ const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onSelectTicket }) 
 const Header: React.FC = () => (
   <div id="header" className={styles.header}>
     <div className={styles.header_title}>
-      <Link href="/" passHref>
-        <Image
-          className={styles.header_image}
-          src="/img/Auschlogo.png"
-          alt="ltl"
-          width={80}
-          height={100}
-        />
-      </Link>
+      <LogoLink /> {/* Используем компонент LogoLink */}
       <div className={styles.autschool_logo}>
         <h4 className={styles.autschool}>Автошкола</h4>
         <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>

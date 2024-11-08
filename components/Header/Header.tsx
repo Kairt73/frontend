@@ -1,20 +1,13 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import LogoLink from '../LogoLink/Logolink'; // Импортируем клиентский компонент
 import styles from './header.module.css';
+
 
 const Header: React.FC = () => {
   return (
     <div id="header" className={styles.header}>
       <div className={styles.header_title}>
-        <Link href="/">
-          <Image
-            className={styles.header_image}
-            src="/img/Auschlogo.png"
-            alt="ltl"
-            width={80}
-            height={100}
-          />
-        </Link>
+        <LogoLink /> {/* Используем новый компонент */}
         <div className={styles.autschool_logo}>
           <h4 className={styles.autschool}>Автошкола</h4>
           <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>

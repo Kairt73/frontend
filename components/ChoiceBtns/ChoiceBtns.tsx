@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import LogoLink from '../LogoLink/LogoLink'; // Импортируем клиентский компонент
 import Link from 'next/link';
 import styles from './choisebtns.module.css';
 
@@ -8,9 +8,7 @@ const ChoiceBtns: React.FC = () => {
     <div className={`${styles.choice} ${styles.mulish}`}>
       <div id='header' className={`${styles.header} ${styles.mulish}`}>
         <div className={styles.header_title}>
-          <Link href="/">
-            <Image className={styles.header_image} src="/img/Auschlogo.png" alt="ltl" width={80} height={100} />
-          </Link>
+          <LogoLink /> {/* Используем новый компонент */}
           <div className={styles.autschool_logo}>
             <h4 className={styles.autschool}>Автошкола</h4>
             <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>
@@ -45,7 +43,7 @@ const ChoiceBtns: React.FC = () => {
         <h1 className={styles.btns_text}>Онлайн тест по билетам ПДД</h1>
         <div className={styles.btns}>
           <Link href={"/TicketPage"} className={styles.ticket_order}>
-            По номерам биллетов
+            По номерам билетов
           </Link>
           <button className={styles.random}>В случайном порядке</button>
         </div>
