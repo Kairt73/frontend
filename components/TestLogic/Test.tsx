@@ -1,7 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './test.module.css';
 
@@ -15,6 +16,7 @@ interface Question {
 }
 
 const Test: React.FC = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [selectedAnswer, setSelectedAnswer] = useState<(number | null)[]>([]);
@@ -47,7 +49,8 @@ const Test: React.FC = () => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
-          alert(`Время вышло! Правильные ответы: ${correctAnswers} из ${questions.length}`);
+          // Перенаправление на страницу результатов после окончания времени
+          router.push(`/results?correctAnswers=${correctAnswers}&totalQuestions=${questions.length}`);
           return 0;
         }
         return prevTime - 1;
@@ -55,7 +58,7 @@ const Test: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [correctAnswers, questions.length]);
+  }, [correctAnswers, questions.length, router]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -165,21 +168,8 @@ const Test: React.FC = () => {
           </button>
         ))}
       </div>
-      <div className={styles.result}>
-        {timeLeft <= 0 && (
-          <div className={styles.result_message}>
-            Время вышло! Правильные ответы: {correctAnswers} из {questions.length}
-          </div>
-        )}
-      </div>
     </div>
   );
 };
 
-const TestWrapper: React.FC = () => (
-  <Suspense fallback={<div>Загрузка...</div>}>
-    <Test />
-  </Suspense>
-);
-
-export default TestWrapper;
+export default Test;

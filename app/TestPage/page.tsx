@@ -1,4 +1,4 @@
-import Test from "../../components/TestExam/Test"
+import Test from "../../components/TestLogic/Test"
 
 const TestPage = () => {
     return (
@@ -8,4 +8,4 @@ const TestPage = () => {
     )
 }
 
-export default TestPage
+export default TestPage;

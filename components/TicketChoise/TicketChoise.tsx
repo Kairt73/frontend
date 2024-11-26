@@ -1,12 +1,15 @@
 'use client';
-import Link from 'next/link';
-import LogoLink from '../LogoLink/Logolink'; // Импортируем клиентский компонент
+
+import React from 'react';
 import { Mulish } from 'next/font/google';
+import Link from 'next/link';
+import LogoLink from '../LogoLink/Logolink';
 import styles from './ticketchoise.module.css';
 
 const mulish = Mulish({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
-interface Ticket {
+// Интерфейс для описания типа билета
+export interface Ticket {
   id: number;
   ticketName: string;
 }
@@ -16,49 +19,55 @@ interface TicketChoiseProps {
   onSelectTicket: (ticketId: number) => void;
 }
 
-const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onSelectTicket }) => (
-  <div className={`${styles.choice_ticket} ${mulish.className}`}>
-    <Header />
-    <h1 className={styles.ticket_text}>Экзаменационные билеты</h1>
-    <div className={styles.ticket_list}>
-      {tickets.map((ticket) => (
-        <button
-          key={ticket.id}
-          className={styles.ticket_btn}
-          onClick={() => onSelectTicket(ticket.id)}
-        >
-          Билет № {ticket.id}
-        </button>
-      ))}
-    </div>
-  </div>
-);
-
-const Header: React.FC = () => (
-  <div id="header" className={styles.header}>
-    <div className={styles.header_title}>
-      <LogoLink /> {/* Используем компонент LogoLink */}
-      <div className={styles.autschool_logo}>
-        <h4 className={styles.autschool}>Автошкола</h4>
-        <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>
+const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onSelectTicket }) => {
+  return (
+    <div className={`${styles.choice_ticket} ${mulish.className}`}>
+      <Header />
+      <h1 className={styles.ticket_text}>Экзаменационные билеты</h1>
+      <div className={styles.ticket_list}>
+        {tickets.map((ticket) => (
+          <button
+            key={ticket.id}
+            className={styles.ticket_btn}
+            onClick={() => onSelectTicket(ticket.id)}
+          >
+            Билет № {ticket.id}
+          </button>
+        ))}
       </div>
     </div>
-    <Navigation />
-  </div>
-);
+  );
+};
 
-const Navigation: React.FC = () => (
-  <div className={styles.header_navigation}>
-    <ul className={styles.header_menu}>
-      {['Главная', 'О нас', 'Условия обучения', 'Контакты'].map((item, index) => (
-        <li key={index} className={styles.header_menu_links}>
-          <Link href="/" className={styles.header_menu_link}>
-            {item}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+const Header: React.FC = () => {
+  return (
+    <div id="header" className={styles.header}>
+      <div className={styles.header_title}>
+        <LogoLink /> {/* Добавьте компонент LogoLink сюда */}
+        <div className={styles.autschool_logo}>
+          <h4 className={styles.autschool}>Автошкола</h4>
+          <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>
+        </div>
+      </div>
+      <Navigation />
+    </div>
+  );
+};
+
+const Navigation: React.FC = () => {
+  return (
+    <div className={styles.header_navigation}>
+      <ul className={styles.header_menu}>
+        {['Главная', 'О нас', 'Условия обучения', 'Контакты'].map((item, index) => (
+          <li key={index} className={styles.header_menu_links}>
+            <Link href="/" className={styles.header_menu_link}>
+              {item}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default TicketChoise;
