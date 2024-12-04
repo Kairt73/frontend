@@ -26,13 +26,13 @@ const TicketChoise: React.FC<TicketChoiseProps> = ({ tickets, onSelectTicket }) 
       <h1 className={styles.ticket_text}>Экзаменационные билеты</h1>
       <div className={styles.ticket_list}>
         {tickets.map((ticket) => (
-          <button
-            key={ticket.id}
-            className={styles.ticket_btn}
-            onClick={() => onSelectTicket(ticket.id)}
+          <Link 
+            key={ticket.id} 
+            href={`/ExamPage?ticketId=${ticket.id}`} 
+            className={styles.ticket_btn} 
           >
             Билет № {ticket.id}
-          </button>
+          </Link>
         ))}
       </div>
     </div>
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
   return (
     <div id="header" className={styles.header}>
       <div className={styles.header_title}>
-        <LogoLink /> {/* Добавьте компонент LogoLink сюда */}
+        <LogoLink /> 
         <div className={styles.autschool_logo}>
           <h4 className={styles.autschool}>Автошкола</h4>
           <h3 className={styles.autschool_name}>“БРТШ-ОСТО”</h3>

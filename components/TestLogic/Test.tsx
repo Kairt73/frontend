@@ -6,11 +6,11 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import styles from './test.module.css';
 
-interface Question {
+export interface Question {
   id: number;
   question_number: string;
   question_content: string;
-  answer_list: string[];
+  answer_list: string; // Это теперь строка
   true_answer: number;
   question_img: string;
 }
@@ -99,12 +99,28 @@ const Test: React.FC = () => {
     }
   };
 
-  const handleAnswerClick = (index: number) => {
+  const handleAnswerChange = (index: number) => {
     if (!submitted[currentQuestion]) {
       const updatedAnswers = [...selectedAnswer];
       updatedAnswers[currentQuestion] = index;
       setSelectedAnswer(updatedAnswers);
     }
+  };
+
+  // Разбираем строку с ответами на массив
+  const parseAnswers = (answerList: string) => {
+    return answerList.split(',').map(answer => answer.trim());
+  };
+
+  const getButtonStyle = (questionIndex: number, answerIndex: number): string => {
+    if (submitted[questionIndex]) {
+      return answerIndex === questions[questionIndex].true_answer
+        ? styles.trueAnswerButton
+        : selectedAnswer[questionIndex] === answerIndex
+        ? styles.wrongAnswerButton
+        : '';
+    }
+    return '';
   };
 
   return (
@@ -115,8 +131,8 @@ const Test: React.FC = () => {
             <Image
               src={questions[currentQuestion].question_img}
               alt="Question"
-              width={800}
-              height={400}
+              width={600}
+              height={300}
             />
           )}
         </div>
@@ -124,17 +140,31 @@ const Test: React.FC = () => {
         <h1 className={styles.test_question}>{questions[currentQuestion]?.question_number}</h1>
         <div className={styles.timer}>Оставшееся время: {formatTime(timeLeft)}</div>
       </div>
-      <div className={styles.test_answer}>
-        {questions[currentQuestion]?.answer_list.map((answer, index) => (
-          <div
-            key={index}
-            className={`${styles.checkbox} ${checkAnswer(currentQuestion, index)}`}
-            onClick={() => handleAnswerClick(index)}
-          >
-            {answer}
+      {
+        questions[currentQuestion] && (
+          <div className={styles.answers}>
+            {parseAnswers(questions[currentQuestion].answer_list).map((answer, index) => (
+              <div key={index} className={styles.answer_radio}>
+                <input
+                  type="radio"
+                  id={`answer_${index}`}
+                  name={`question_${currentQuestion}`}
+                  value={index}
+                  checked={selectedAnswer[currentQuestion] === index}
+                  onChange={() => handleAnswerChange(index)}
+                  disabled={submitted[currentQuestion]}
+                />
+                <label
+                  htmlFor={`answer_${index}`}
+                  className={`${checkAnswer(currentQuestion, index)} ${getButtonStyle(currentQuestion, index)}`}
+                >
+                  {answer}
+                </label>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        )
+      }
       <div className={styles.test_btns}>
         <button
           className={styles.test_btn}
@@ -161,7 +191,7 @@ const Test: React.FC = () => {
         {questions.map((_, index) => (
           <button
             key={index}
-            className={`${styles.nav_btn} ${currentQuestion === index ? styles.active : ''}`}
+            className={`${styles.nav_btn} ${currentQuestion === index ? styles.active : ''} ${submitted[index] && (questions[index].true_answer === selectedAnswer[index] ? styles.correctButton : styles.incorrectButton)}`}
             onClick={() => setCurrentQuestion(index)}
           >
             {index + 1}
