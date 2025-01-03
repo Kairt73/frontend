@@ -137,7 +137,7 @@ const Test: React.FC = () => {
           )}
         </div>
         <div className={styles.test_title}>{questions[currentQuestion]?.question_content}</div>
-        <h1 className={styles.test_question}>{questions[currentQuestion]?.question_number}</h1>
+        <h1 className={styles.test_question}>Вопрос №: {questions[currentQuestion]?.question_number}</h1>
         <div className={styles.timer}>Оставшееся время: {formatTime(timeLeft)}</div>
       </div>
       {
