@@ -38,7 +38,18 @@
     max-width: 200px;
     max-height: 50px;
     transition: all 0.3s ease; /* Добавим плавный переход для анимаций */
-  }
+    text-decoration: none !important; /* Принудительно убираем подчеркивание */
+}
+
+/* Убедитесь, что убрано подчеркивание на всех состояниях */
+.ticket_btn:link,
+.ticket_btn:visited,
+.ticket_btn:hover,
+.ticket_btn:active {
+    text-decoration: none !important;
+}
+
+
   
   .ticket_btn:hover {
     box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
