@@ -110,6 +110,10 @@
     text-decoration: none;
     color: #3a3a3a8d;
   }
+
+  .ticket_list{
+    padding-bottom: 20px;
+  }
   
   /* Адаптивные стили для различных разрешений */
   @media screen and (max-width: 1024px) {

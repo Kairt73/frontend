@@ -142,11 +142,13 @@
 }
 
 .true_answer {
-    background-color: #D0FCD0;
+    background-color: #23E41F;
+    border-radius: 2px;
 }
 
 .wrongAnswer {
-    background-color: #FCD0D0;
+    background-color: #FF0000;
+    border-radius: 2px;
 }
 
 .test_btns {
