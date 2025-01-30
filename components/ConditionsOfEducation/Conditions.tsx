@@ -9,7 +9,7 @@ const Conditions: React.FC = () => {
       </h1>
       <div className={styles.carts}>
         <div className={styles.cart}>
-          <Image src="/img/Conditions.image/Audi.png" alt="SDS" width={260} height={200} />
+          <Image src="/img2/Conditions.image/Audi.png" alt="SDS" width={260} height={200} />
           <p className={styles.condition_price}>
             Категория B
             <br />
@@ -21,7 +21,7 @@ const Conditions: React.FC = () => {
           </p>
         </div>
         <div className={styles.cart}>
-          <Image src="/img/Conditions.image/Kamaz.png" alt="SDS" width={260} height={200} />
+          <Image src="/img2/Conditions.image/Kamaz.png" alt="SDS" width={260} height={200} />
           <p className={styles.condition_price}>
             Категория BC
             <br />
@@ -33,7 +33,7 @@ const Conditions: React.FC = () => {
           </p>
         </div>
         <div className={styles.cart}>
-          <Image src="/img/Conditions.image/Track.png" alt="SDS" width={260} height={200} />
+          <Image src="/img2/Conditions.image/Track.png" alt="SDS" width={260} height={200} />
           <p className={styles.condition_price}>
             Категория CE
             <br />
@@ -45,7 +45,7 @@ const Conditions: React.FC = () => {
           </p>
         </div>
         <div className={styles.cart}>
-          <Image src="/img/Conditions.image/Bus.png" alt="SDS" width={260} height={200} />
+          <Image src="/img2/Conditions.image/Bus.png" alt="SDS" width={260} height={200} />
           <p className={styles.condition_price}>
             Категория D
             <br />

@@ -12,7 +12,7 @@ const LogoLink: React.FC = () => {
 
   return (
     <Link href="/" onClick={handleLogoClick} passHref>
-      <Image src="/img/Auschlogo.png" alt="ltl" width={80} height={100} />
+      <Image src="/img2/Auschlogo.png" alt="ltl" width={80} height={100} />
     </Link>
   );
 };

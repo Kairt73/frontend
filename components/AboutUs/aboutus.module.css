@@ -28,11 +28,11 @@
         padding-right: 100px;
         border-radius: 20px;
         color: #fff;
-        background-image: url("/img/car-background.png");
+        background-image: url("/img2/car-background.png");
         background-size: cover;
         background-position: center;
     }
-
+    
     @media (max-width: 1400px) {
         .aboutus_title {
             margin: 0;

@@ -17,14 +17,14 @@ const Banner: React.FC = () => {
         <div className={styles.images_signs}>
           <Image
             className={styles.sings_big}
-            src="/img/Sings.png"
+            src="/img2/Sings.png"
             alt="SDS"
             width={220}
             height={210}
           />
           <Image
             className={styles.sings_small}
-            src="/img/Sings2.png"
+            src="/img2/Sings2.png"
             alt="SDS"
             width={150}
             height={140}
@@ -34,7 +34,7 @@ const Banner: React.FC = () => {
       <div className={styles.car}>
         <Image
           className={styles.image_car}
-          src="/img/Car.png"
+          src="/img2/Car.png"
           alt="SDS"
           width={1200}
           height={600}
