@@ -1,5 +1,5 @@
 import React from 'react';
-import LogoLink from '../LogoLink/LogoLink'; // Импортируем клиентский компонент
+import LogoLink from '../LogoLink/Logolink'; // Импортируем клиентский компонент
 import Link from 'next/link';
 import styles from './choisebtns.module.css';
 
