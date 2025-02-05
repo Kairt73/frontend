@@ -30,7 +30,7 @@ const Test: React.FC = () => {
 
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/question_list?ticket_2id=${ticketId}`);
+        const response = await fetch(`http://localhost:8080/api/question_list?ticket_id=${ticketId}`);
         const data = await response.json();
         if (data.success) {
           setQuestions(data.question_list);

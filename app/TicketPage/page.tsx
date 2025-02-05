@@ -5,7 +5,7 @@ import TicketChoise, { Ticket } from '../../components/TicketChoise/TicketChoise
 
 const TicketPage: React.FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
-  const [selectedTickets, setSelectedTickets] = useState<number[]>([]);
+  const [selectedTicket, setSelectedTicket] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -22,16 +22,13 @@ const TicketPage: React.FC = () => {
   }, []);
 
   const handleTicketClick = (ticketId: number) => {
-    setSelectedTickets((prev) => {
-      const updatedSelection = prev.length < 2 ? [...prev, ticketId] : [ticketId];
-      if (updatedSelection.length === 2) fetchQuestions(updatedSelection);
-      return updatedSelection;
-    });
+    setSelectedTicket(ticketId);
+    fetchQuestions(ticketId);
   };
 
-  const fetchQuestions = async ([ticketId1, ticketId2]: number[]) => {
+  const fetchQuestions = async (ticketId: number) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/question_list?ticket_id1=${ticketId1}&ticket_id2=${ticketId2}`);
+      const response = await fetch(`http://localhost:8080/api/question_list?ticket_id=${ticketId}`);
       if (!response.ok) throw new Error(`Error: ${response.status}`);
 
       const data = await response.json();
