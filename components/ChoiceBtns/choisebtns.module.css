@@ -44,6 +44,7 @@
 
 .random {
     border: none;
+    text-decoration: none;
     color: #fff;
     background-color: #DB0008;
     font-size: 18px;
